@@ -16,4 +16,12 @@
     <string name="se_connecter">Se connecter</string>
     <string name="mot_de_passe_oubli">Mot de passe oublié ?</string>
     <string name="pas_encore_inscrit_creer_un_compte">Pas encore inscrit ? Créer un compte</string>
+    <string name="repetez_le_mot_de_passe">Répétez le mot de passe</string>
+    <string name="s_inscrire">S\'inscrire</string>
+    <string name="d_j_un_compte_se_connecter">Déjà un compte ? Se connecter</string>
+    <string name="nom">Nom</string>
+    <string name="prenom">Prénom</string>
+    <string name="username">Username</string>
+    <string name="tous_les_champs_sont_obligatoires">Tous les champs sont obligatoires</string>
+    <string name="genre">Genre</string>
 </resources>

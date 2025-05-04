@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.retromarket.BaseActivity
@@ -25,7 +26,8 @@ class LoginActivity : BaseActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_login)
         val btnLogin = findViewById<Button>(R.id.btnLogin)
-
+        val registerLink = findViewById<TextView>(R.id.tvRegister)
+        val forgotPasswordLink = findViewById<TextView>(R.id.tvForgotPassword)
         btnLogin.setOnClickListener {
             val email = findViewById<EditText>(R.id.etEmail).text.toString()
             val password = findViewById<EditText>(R.id.etPassword).text.toString()
@@ -33,7 +35,7 @@ class LoginActivity : BaseActivity() {
                 Toast.makeText(this@LoginActivity, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show()
 
             }else{
-                val user = User(null,email, password,null,null,null,null)
+                val user = User(null,email, password,null,null,null,null,null)
                 Log.d("User", "Utilisateur : ${user}")
                 RetrofitClient.instance.login(user).enqueue(object : Callback<AuthResponse> {
                     override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
@@ -60,7 +62,7 @@ class LoginActivity : BaseActivity() {
 
         }
 
-        binding.tvRegister.setOnClickListener {
+        registerLink.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
 
