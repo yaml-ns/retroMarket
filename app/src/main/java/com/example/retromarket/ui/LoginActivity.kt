@@ -43,6 +43,8 @@ class LoginActivity : BaseActivity() {
                             Toast.makeText(this@LoginActivity, "Connexion réussie", Toast.LENGTH_SHORT).show()
                             getSharedPreferences("retro_market", MODE_PRIVATE).edit().clear().apply()
                             getSharedPreferences("retro_market", MODE_PRIVATE).edit().putString("token", res.token).apply()
+                            val name = "${res.user.prenom} ${res.user.nom}"
+                            findViewById<TextView>(R.id.profileName).setText(name)
                             val intent = Intent(this@LoginActivity, MainActivity::class.java)
                             startActivity(intent)
                         } else {

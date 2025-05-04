@@ -6,6 +6,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.example.retromarket.BaseActivity
 import com.example.retromarket.R
 import com.example.retromarket.data.model.Product
@@ -20,7 +22,8 @@ class ProductDetailsActivity : BaseActivity() {
         val product = intent.getParcelableExtra<Product>("product")
 
         val imageView = findViewById<ImageView>(R.id.ivDetailImage)
-        val nameView = findViewById<TextView>(R.id.tvDetailName)
+        val descView = findViewById<TextView>(R.id.ivDescription)
+        val nameView = findViewById<TextView>(R.id.ivTitle)
         val categoryView = findViewById<TextView>(R.id.tvDetailCategory)
         val priceView = findViewById<TextView>(R.id.tvDetailPrice)
         val addToCartBtn = findViewById<TextView>(R.id.addToCartBtn)
@@ -39,13 +42,18 @@ class ProductDetailsActivity : BaseActivity() {
         }
 
         product?.let {
-            nameView.text = it.description
-            categoryView.text = it.category
-            priceView.text = "${it.price} €"
+            nameView.text = it.title
+            descView.text = it.description
+            categoryView.text = "Catégorie : ${it.category}"
+            priceView.text = "${it.price} $"
 
-            Glide.with(this)
+            val radius = 120
+
+            Glide.with(this@ProductDetailsActivity)
                 .load(it.image)
+                .apply(RequestOptions.bitmapTransform(RoundedCorners(radius)))
                 .into(imageView)
+
         }
     }
 }
