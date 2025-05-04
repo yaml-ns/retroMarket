@@ -2,7 +2,6 @@ package com.example.retromarket.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -28,8 +27,7 @@ class ProductDetailsActivity : BaseActivity() {
 //        getSharedPreferences("retro_market", MODE_PRIVATE).edit().clear().apply()
         val prefs = getSharedPreferences("retro_market", MODE_PRIVATE)
         val token = prefs.getString("token", null)
-        Log.d("prefs","${prefs.getString("user",null)}")
-        Log.d("token","${token}")
+
         addToCartBtn.setOnClickListener(){
             if (token == null){
                 val intent = Intent(this, LoginActivity::class.java)

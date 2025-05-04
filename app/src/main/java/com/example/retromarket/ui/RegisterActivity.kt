@@ -1,16 +1,13 @@
 package com.example.retromarket.ui
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.example.retromarket.BaseActivity
 import com.example.retromarket.R
 import com.example.retromarket.databinding.ActivityRegisterBinding
@@ -57,8 +54,8 @@ class RegisterActivity : BaseActivity() {
                     override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
                         val res = response.body()
                         if (res?.message == "Utilisateur créé avec succès") {
-                            Toast.makeText(this@RegisterActivity, "Inscription réussie", Toast.LENGTH_SHORT).show()
-                            finish()
+                            val intent = Intent(this@RegisterActivity, ConfirmationActivity::class.java)
+                            startActivity(intent)
                         } else {
                             Toast.makeText(this@RegisterActivity, res?.message ?: "Erreur d'inscription", Toast.LENGTH_SHORT).show()
                         }

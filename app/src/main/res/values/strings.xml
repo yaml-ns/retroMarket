@@ -24,4 +24,5 @@
     <string name="username">Username</string>
     <string name="tous_les_champs_sont_obligatoires">Tous les champs sont obligatoires</string>
     <string name="genre">Genre</string>
+    <string name="confirmation_message">Un lien de confirmation est envoyé sur votre adresse courriel d\'inscription. Suivez ce lien pour activer votre compte.</string>
 </resources>

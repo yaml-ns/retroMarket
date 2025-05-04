@@ -2,13 +2,12 @@ package com.example.retromarket.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.example.retromarket.BaseActivity
+import com.example.retromarket.MainActivity
 import com.example.retromarket.R
 import com.example.retromarket.databinding.ActivityLoginBinding
 import com.example.retromarket.data.api.RetrofitClient
@@ -36,18 +35,16 @@ class LoginActivity : BaseActivity() {
 
             }else{
                 val user = User(null,email, password,null,null,null,null,null)
-                Log.d("User", "Utilisateur : ${user}")
+
                 RetrofitClient.instance.login(user).enqueue(object : Callback<AuthResponse> {
                     override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
-                        Log.d("MonTag", "Variable importante : ${response}")
                         val res = response.body()
-                        Log.d("ResponseBody","${res}")
                         if (res?.message == "Login successful" && res.token != null) {
                             Toast.makeText(this@LoginActivity, "Connexion réussie", Toast.LENGTH_SHORT).show()
-//                            // Enregistre le token
                             getSharedPreferences("retro_market", MODE_PRIVATE).edit().clear().apply()
                             getSharedPreferences("retro_market", MODE_PRIVATE).edit().putString("token", res.token).apply()
-                            finish()
+                            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                            startActivity(intent)
                         } else {
                             Toast.makeText(this@LoginActivity, res?.message ?: "Erreur de connexion", Toast.LENGTH_SHORT).show()
                         }
@@ -66,8 +63,8 @@ class LoginActivity : BaseActivity() {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
 
-        binding.tvForgotPassword.setOnClickListener {
-            val email = binding.etEmail.text.toString()
+        forgotPasswordLink.setOnClickListener {
+            val email = findViewById<TextView>(R.id.etEmail).text.toString()
             if (email.isNotEmpty()) {
                 RetrofitClient.instance.forgotPassword(mapOf("email" to email)).enqueue(object : Callback<AuthResponse> {
                     override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {

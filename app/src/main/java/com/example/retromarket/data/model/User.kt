@@ -7,5 +7,6 @@ data class User(
     val username: String?,
     val nom: String?,
     val prenom: String?,
+    val genre:String?,
     val role: String?
 )
