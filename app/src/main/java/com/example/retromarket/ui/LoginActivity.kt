@@ -12,7 +12,9 @@ import com.example.retromarket.R
 import com.example.retromarket.databinding.ActivityLoginBinding
 import com.example.retromarket.data.api.RetrofitClient
 import com.example.retromarket.data.model.AuthResponse
+import com.example.retromarket.data.model.LoginResponse
 import com.example.retromarket.data.model.User
+import com.example.retromarket.service.SessionManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -35,27 +37,38 @@ class LoginActivity : BaseActivity() {
 
             }else{
                 val user = User(null,email, password,null,null,null,null,null)
-
-                RetrofitClient.instance.login(user).enqueue(object : Callback<AuthResponse> {
+                val api = RetrofitClient.instance
+                val call = api.login(user)
+                call.enqueue(object : Callback<AuthResponse> {
                     override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
-                        val res = response.body()
-                        if (res?.message == "Login successful" && res.token != null) {
-                            Toast.makeText(this@LoginActivity, "Connexion réussie", Toast.LENGTH_SHORT).show()
-                            getSharedPreferences("retro_market", MODE_PRIVATE).edit().clear().apply()
-                            getSharedPreferences("retro_market", MODE_PRIVATE).edit().putString("token", res.token).apply()
-                            val name = "${res.user.prenom} ${res.user.nom}"
-                            findViewById<TextView>(R.id.profileName).setText(name)
-                            val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                            startActivity(intent)
+                        if (response.isSuccessful) {
+                            val authResponse = response.body()
+                            if (authResponse != null) {
+
+                                // Sauvegarde du token
+                                val token = authResponse.token
+                                if (token != null) {
+                                    SessionManager.saveAuthToken(this@LoginActivity, token)
+                                }
+                                val user_id = authResponse.user.id
+                                if (user_id !=null){
+                                    SessionManager.saveUserId(this@LoginActivity, user_id)
+                                }
+
+                                Toast.makeText(this@LoginActivity, "Bienvenue ${authResponse.user.username}", Toast.LENGTH_SHORT).show()
+                                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                                finish()
+                            }
                         } else {
-                            Toast.makeText(this@LoginActivity, res?.message ?: "Erreur de connexion", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@LoginActivity, "Erreur : ${response.code()}", Toast.LENGTH_SHORT).show()
                         }
                     }
 
                     override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
-                        Toast.makeText(this@LoginActivity, "Erreur serveur: ${t.message}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@LoginActivity, "Erreur réseau : ${t.message}", Toast.LENGTH_SHORT).show()
                     }
                 })
+
             }
 
 

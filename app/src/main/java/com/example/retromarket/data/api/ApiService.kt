@@ -1,13 +1,17 @@
 package com.example.retromarket.data.api
 
 import com.example.retromarket.data.model.AuthResponse
+import com.example.retromarket.data.model.CartResponse
 import com.example.retromarket.data.model.Product
 import com.example.retromarket.data.model.ProductResponse
 import com.example.retromarket.data.model.User
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface ApiService {
     @POST("login")
@@ -20,4 +24,37 @@ interface ApiService {
 
     @GET("products")
     fun getAllProducts(): Call<List<Product>>
+
+
+    @POST("cart/{id}")
+    fun addToCart(
+        @Header("Authorization") token: String,
+        @Path("id") productId: Int
+    ): Call<CartResponse>
+
+    @GET("cart")
+    fun getCart(
+        @Header("Authorization") token: String
+    ): Call<CartResponse>
+
+    @DELETE("cart/{id}")
+    fun removeFromCart(
+        @Header("Authorization") token: String,
+        @Path("id") productId: Int
+    ): Call<CartResponse>
+
+    @GET("cart-count")
+    fun getCartCount(
+        @Header("Authorization") token: String
+    ): Call<Map<String, Int>> // ou un modèle selon la réponse
+
+    @POST("cart/checkout")
+    fun checkoutCart(
+        @Header("Authorization") token: String
+    ): Call<CartResponse>
+
+    @DELETE("cart/clear")
+    fun clearCart(
+        @Header("Authorization") token: String
+    ): Call<CartResponse>
 }

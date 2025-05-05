@@ -1,6 +1,7 @@
 package com.example.retromarket
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,6 +23,7 @@ class MainActivity : BaseActivity() {
         rvProducts.layoutManager = LinearLayoutManager(this)
         RetrofitClient.instance.getAllProducts().enqueue(object : retrofit2.Callback<List<Product>> {
             override fun onResponse(call: Call<List<Product>>, response: retrofit2.Response<List<Product>>) {
+
                 if (response.isSuccessful) {
                     val products = response.body() ?: emptyList()
                     rvProducts.adapter = ProductAdapter(this@MainActivity,products)
@@ -34,6 +36,7 @@ class MainActivity : BaseActivity() {
             }
 
             override fun onFailure(call: Call<List<Product>>, t: Throwable) {
+                Log.d("SERVER_RESPONSE", "${ t.message }")
                 Toast.makeText(this@MainActivity,"Probleme",Toast.LENGTH_SHORT).show()
 
             }
