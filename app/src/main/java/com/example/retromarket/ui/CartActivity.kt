@@ -1,5 +1,6 @@
 package com.example.retromarket.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
@@ -41,7 +42,11 @@ class CartActivity : BaseActivity() {
         }
 
         clearBtn.setOnClickListener { viewModel.clearCart() }
-        checkoutBtn.setOnClickListener { viewModel.checkout() }
+        checkoutBtn.setOnClickListener {
+            val intent = Intent(this, CheckoutActivity::class.java)
+            intent.putParcelableArrayListExtra("cartItems", ArrayList(viewModel.cartItems.value))
+            startActivity(intent)
+        }
 
 
         viewModel.loadCart()

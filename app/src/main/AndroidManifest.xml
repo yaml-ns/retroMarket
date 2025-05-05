@@ -26,6 +26,9 @@
             android:name=".ui.ProductDetailsActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.CheckoutActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

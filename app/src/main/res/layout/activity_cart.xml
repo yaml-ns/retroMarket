@@ -24,14 +24,15 @@
 
 
     <Button
-        android:id="@+id/btnClearCart"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/vider_le_panier" />
-
-    <Button
         android:id="@+id/btnCheckout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/commander" />
+
+    <Button
+        android:id="@+id/btnClearCart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#CC0404"
+        android:text="@string/vider_le_panier" />
 </LinearLayout>

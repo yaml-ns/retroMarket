@@ -3,6 +3,8 @@ package com.example.retromarket.data.api
 import com.example.retromarket.data.model.AuthResponse
 import com.example.retromarket.data.model.CartItem
 import com.example.retromarket.data.model.CartResponse
+import com.example.retromarket.data.model.OrderRequest
+import com.example.retromarket.data.model.OrderResponse
 import com.example.retromarket.data.model.Product
 import com.example.retromarket.data.model.ProductResponse
 import com.example.retromarket.data.model.User
@@ -58,4 +60,10 @@ interface ApiService {
     fun clearCart(
         @Header("Authorization") token: String
     ): Call<CartResponse>
+
+    @POST("orders")
+    fun createOrder(
+        @Header("Authorization") token: String,
+        @Body orderRequest: OrderRequest
+    ): Call<OrderResponse>
 }
