@@ -1,6 +1,7 @@
 package com.example.retromarket.data.api
 
 import com.example.retromarket.data.model.AuthResponse
+import com.example.retromarket.data.model.CartItem
 import com.example.retromarket.data.model.CartResponse
 import com.example.retromarket.data.model.Product
 import com.example.retromarket.data.model.ProductResponse
@@ -35,7 +36,7 @@ interface ApiService {
     @GET("cart")
     fun getCart(
         @Header("Authorization") token: String
-    ): Call<CartResponse>
+    ): Call<List<CartItem>>
 
     @DELETE("cart/{id}")
     fun removeFromCart(

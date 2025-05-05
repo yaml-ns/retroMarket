@@ -1,6 +1,7 @@
 package com.example.retromarket.data.model
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -22,20 +23,27 @@ class CartViewModel(private val context: Context) : ViewModel() {
     private val token = "Bearer ${SessionManager.fetchAuthToken(context)}"
 
     fun loadCart() {
-        api.getCart(token).enqueue(object : Callback<CartResponse> {
-            override fun onResponse(call: Call<CartResponse>, response: Response<CartResponse>) {
-                if (response.isSuccessful) {
-                    _cartItems.value = response.body()?.cart ?: emptyList()
-                } else {
-                    _message.value = "Erreur chargement panier"
+        val token = SessionManager.fetchAuthToken(context)
+        if (token != null) {
+            api.getCart("Bearer $token").enqueue(object : Callback<List<CartItem>> {
+                override fun onResponse(
+                    call: Call<List<CartItem>>,
+                    response: Response<List<CartItem>>
+                ) {
+                    if (response.isSuccessful) {
+                        _cartItems.value = response.body()
+                    } else {
+                        _message.value = "Erreur lors du chargement du panier"
+                    }
                 }
-            }
 
-            override fun onFailure(call: Call<CartResponse>, t: Throwable) {
-                _message.value = "Échec de connexion"
-            }
-        })
+                override fun onFailure(call: Call<List<CartItem>>, t: Throwable) {
+                    _message.value = "Erreur réseau : ${t.localizedMessage}"
+                }
+            })
+        }
     }
+
 
     fun clearCart() {
         api.clearCart(token).enqueue(object : Callback<CartResponse> {
