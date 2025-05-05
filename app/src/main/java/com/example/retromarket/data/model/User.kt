@@ -1,5 +1,9 @@
 package com.example.retromarket.data.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class User(
     val id: Int?,
     val email:String,
@@ -9,4 +13,4 @@ data class User(
     val prenom: String?,
     val genre:String?,
     val role: String?
-)
+) : Parcelable

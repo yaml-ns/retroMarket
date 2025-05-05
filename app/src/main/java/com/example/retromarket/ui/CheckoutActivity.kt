@@ -1,11 +1,13 @@
 package com.example.retromarket.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.example.retromarket.BaseActivity
+import com.example.retromarket.MainActivity
 import com.example.retromarket.R
 import com.example.retromarket.data.api.RetrofitClient
 import com.example.retromarket.data.model.CartItem
@@ -90,7 +92,8 @@ class CheckoutActivity : BaseActivity() {
             override fun onResponse(call: Call<OrderResponse>, response: Response<OrderResponse>) {
                 if (response.isSuccessful) {
                     Toast.makeText(this@CheckoutActivity, "Commande passée avec succès", Toast.LENGTH_SHORT).show()
-                    finish()
+                    val intent = Intent(this@CheckoutActivity, MainActivity::class.java)
+                    startActivity(intent)
                 } else {
                     Toast.makeText(this@CheckoutActivity, "Erreur lors de la création de la commande", Toast.LENGTH_SHORT).show()
                 }

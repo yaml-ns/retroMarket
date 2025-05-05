@@ -50,10 +50,12 @@ class LoginActivity : BaseActivity() {
                                 if (token != null) {
                                     SessionManager.saveAuthToken(this@LoginActivity, token)
                                 }
-                                val user_id = authResponse.user.id
-                                if (user_id !=null){
-                                    SessionManager.saveUserId(this@LoginActivity, user_id)
+                                val userId = authResponse.user.id
+                                if (userId !=null){
+                                    SessionManager.saveUserId(this@LoginActivity, userId)
                                 }
+                                val loggeninUser = authResponse.user
+                                SessionManager.saveUser(this@LoginActivity, loggeninUser)
 
                                 Toast.makeText(this@LoginActivity, "Bienvenue ${authResponse.user.username}", Toast.LENGTH_SHORT).show()
                                 startActivity(Intent(this@LoginActivity, MainActivity::class.java))

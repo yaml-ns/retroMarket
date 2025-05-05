@@ -6,22 +6,31 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/login"
-            android:icon="@android:drawable/ic_input_add"
+            android:icon="@drawable/login"
             android:title="Connexion" />
+
         <item
-            android:id="@+id/logout"
-            android:icon="@android:drawable/ic_input_add"
-            android:title="Déconnexion" />
+            android:id="@+id/profile"
+            android:icon="@drawable/person_vcard"
+            android:title="Mon profil" />
     </group>
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_item1"
-            android:icon="@android:drawable/ic_input_add"
-            android:title="Item 1" />
+            android:id="@+id/myProduct"
+            android:icon="@drawable/products"
+            android:title="Mes produits" />
         <item
-            android:id="@+id/nav_item2"
-            android:icon="@android:drawable/ic_input_add"
-            android:title="Item 2" />
+            android:id="@+id/myCart"
+            android:icon="@drawable/cart_check"
+            android:title="Mon panier" />
+        <item
+            android:id="@+id/myOrder"
+            android:icon="@drawable/list_check"
+            android:title="Mes commandes" />
     </group>
+    <item
+        android:id="@+id/logout"
+        android:icon="@drawable/logout"
+        android:title="Déconnexion" />
 </menu>
