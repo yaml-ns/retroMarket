@@ -21,7 +21,9 @@ class CartActivity : BaseActivity() {
         viewModel = CartViewModel(this)
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewCart)
-        adapter = CartAdapter()
+        adapter = CartAdapter { itemToDelete ->
+            viewModel.deleteCartItem(itemToDelete)
+        }
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
@@ -29,7 +31,9 @@ class CartActivity : BaseActivity() {
         val checkoutBtn = findViewById<Button>(R.id.btnCheckout)
 
         viewModel.cartItems.observe(this) {
-            adapter.setItems(it)
+            if (it != null) {
+                adapter.setItems(it)
+            }
         }
 
         viewModel.message.observe(this) {
@@ -38,6 +42,7 @@ class CartActivity : BaseActivity() {
 
         clearBtn.setOnClickListener { viewModel.clearCart() }
         checkoutBtn.setOnClickListener { viewModel.checkout() }
+
 
         viewModel.loadCart()
     }

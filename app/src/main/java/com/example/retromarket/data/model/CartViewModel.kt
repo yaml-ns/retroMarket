@@ -13,8 +13,8 @@ import retrofit2.Response
 
 class CartViewModel(private val context: Context) : ViewModel() {
 
-    private val _cartItems = MutableLiveData<List<CartItem>>()
-    val cartItems: LiveData<List<CartItem>> = _cartItems
+    private val _cartItems = MutableLiveData<List<CartItem>?>()
+    val cartItems: MutableLiveData<List<CartItem>?> = _cartItems
 
     private val _message = MutableLiveData<String>()
     val message: LiveData<String> = _message
@@ -48,6 +48,7 @@ class CartViewModel(private val context: Context) : ViewModel() {
     fun clearCart() {
         api.clearCart(token).enqueue(object : Callback<CartResponse> {
             override fun onResponse(call: Call<CartResponse>, response: Response<CartResponse>) {
+
                 _message.value = response.body()?.message ?: "Panier vidé"
                 loadCart()
             }
@@ -70,4 +71,25 @@ class CartViewModel(private val context: Context) : ViewModel() {
             }
         })
     }
+
+    fun deleteCartItem(item: CartItem) {
+
+        api.removeFromCart(token, item.id).enqueue(object : Callback<CartResponse> {
+            override fun onResponse(call: Call<CartResponse>, response: Response<CartResponse>) {
+                if (response.isSuccessful) {
+                    val updatedList = cartItems.value?.toMutableList()
+                    updatedList?.remove(item)
+                    _cartItems.postValue(updatedList)
+                    _message.postValue("Produit supprimé du panier")
+                } else {
+                    _message.postValue("Échec de la suppression du produit")
+                }
+            }
+
+            override fun onFailure(call: Call<CartResponse>, t: Throwable) {
+                _message.postValue("Erreur réseau : ${t.message}")
+            }
+        })
+    }
+
 }
