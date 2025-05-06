@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="Ajouter un produit"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/titleEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Titre" />
+
+    <EditText
+        android:id="@+id/descriptionEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Description" />
+
+    <EditText
+        android:id="@+id/priceEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Prix"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/categoryEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Catégorie" />
+
+    <EditText
+        android:id="@+id/imageEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="URL de l'image" />
+
+    <Button
+        android:id="@+id/addButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Ajouter" />
+</LinearLayout>

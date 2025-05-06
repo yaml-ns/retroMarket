@@ -17,7 +17,13 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ui.MyOrdersActivity"
+            android:name=".ui.MyProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.MyProductsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.MyOrderActivity"
             android:exported="false" />
         <activity
             android:name=".ui.ConfirmationActivity"
@@ -27,6 +33,12 @@
             android:exported="false" />
         <activity
             android:name=".ui.ProductDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.AddProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.UpdateProductActivity"
             android:exported="false" />
         <activity
             android:name=".ui.CheckoutActivity"

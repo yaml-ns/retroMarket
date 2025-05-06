@@ -16,6 +16,9 @@ import com.example.retromarket.service.SessionManager
 import com.example.retromarket.ui.CartActivity
 import com.example.retromarket.ui.LoginActivity
 import com.example.retromarket.MainActivity
+import com.example.retromarket.ui.MyOrderActivity
+import com.example.retromarket.ui.MyProductsActivity
+import com.example.retromarket.ui.MyProfileActivity
 
 abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -106,6 +109,15 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
             }
             R.id.myCart -> {
                 startActivity(Intent(this, CartActivity::class.java))
+            }
+            R.id.myOrder -> {
+                startActivity(Intent(this, MyOrderActivity::class.java))
+            }
+            R.id.myProduct -> {
+                startActivity(Intent(this, MyProductsActivity::class.java))
+            }
+            R.id.profile -> {
+                startActivity(Intent(this, MyProfileActivity::class.java))
             }
             // Ajoutez d'autres cas pour les autres éléments de menu si nécessaire
         }
